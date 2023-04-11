@@ -1,0 +1,64 @@
+<script>
+import { useEmailStore } from "../store/emailStore";
+
+export default {
+  data() {
+    return {
+      emailStore: useEmailStore()
+    }
+  }
+};
+</script>
+
+<template>
+  <section class="menu">
+    <ul class="menu__options">
+      <li>
+        <router-link to="/">Inbox ({{ emailStore.inboxMails.length }})</router-link>
+      </li>
+      <li>
+        <router-link to="/archives">Archive ({{ emailStore.archivedMails.length }})</router-link>
+      </li>
+
+      <li><a href="#">Logout</a></li>
+    </ul>
+  </section>
+</template>
+
+<style lang="scss" scoped>
+.menu {
+  padding: 2rem;
+  max-width: 31.25rem;
+  width: 30%;
+
+  &__options{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    
+    li {
+      background-color: #fff;
+      border-radius: 0.5rem;
+      display: flex;
+      font-size: 1.125rem;
+      margin: 0 0 1rem;
+      
+      a {
+        color: inherit;
+        font-weight: 500;
+        padding: 0.625rem 1rem;
+        text-decoration: inherit;
+        width: 100%;
+      }
+
+      a:hover {
+        color: #535bf2;
+      }
+
+      &:last-of-type {
+        margin: auto 0 0;
+      }
+    }
+  }
+}
+</style>
