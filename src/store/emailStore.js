@@ -6,22 +6,34 @@ export const useEmailStore = defineStore('emails', {
       {
         title: "Your 7-Figure Plan Ends at Midnight!",
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quod veritatis dicta vitae consequatur enim magnam quam commodi excepturi nisi amet perspiciatis animi voluptatum tenetur, quos dolorem. Expedita, debitis temporibus.",
-        archived: false
+        archived: false,
+        read: false,
+        isActive: false,
+        selected: false
       },
       {
         title: "[Weekend Only Deals] Open now to get 5% Off",
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quod veritatis dicta vitae consequatur enim magnam quam commodi excepturi nisi amet perspiciatis animi voluptatum tenetur, quos dolorem. Expedita, debitis temporibus.",
-        archived: false
+        archived: false,
+        read: true,
+        isActive: false,
+        selected: false
       },
       {
         title: "Your Apple Music Subscription is expiring",
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quod veritatis dicta vitae consequatur enim magnam quam commodi excepturi nisi amet perspiciatis animi voluptatum tenetur, quos dolorem. Expedita, debitis temporibus.",
-        archived: false
+        archived: false,
+        read: false,
+        isActive: false,
+        selected: false
       },
       {
         title: "You've been invited! Hurry now",
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quod veritatis dicta vitae consequatur enim magnam quam commodi excepturi nisi amet perspiciatis animi voluptatum tenetur, quos dolorem. Expedita, debitis temporibus.",
-        archived: true
+        archived: true,
+        read: false,
+        isActive: false,
+        selected: false
       },
     ]
   }),

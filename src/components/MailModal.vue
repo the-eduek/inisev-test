@@ -1,64 +1,105 @@
+<script>
+export default {
+  emits: [ 'closeEvent' ],
+  props: {
+    mail: {
+      type: Object,
+      required: true
+    }
+  },
+  methods: {
+    closeMailModal() {
+      this.$emit("closeEvent")
+    },
+    escCloseMailModal(e) {
+      if ((e.key.toLowerCase() === 'escape') && (this.mail.isActive === true)) this.closeMailModal();
+    },
+    markAsRead() {
+      this.mail.read = true;
+    },
+    keyMarkAsRead(e) {
+      if ((e.key.toLowerCase() === 'r') && (this.mail.isActive === true)) this.markAsRead();
+    },
+    archiveMail() {
+      this.mail.archived = true;
+    },
+    keyArchiveMail(e) {
+      if ((e.key.toLowerCase() === 'a') && (this.mail.isActive === true)) this.archiveMail();      
+    }
+  },
+  mounted() {
+    window.addEventListener("keydown", this.escCloseMailModal);
+    window.addEventListener("keydown", this.keyMarkAsRead);
+    window.addEventListener("keydown", this.keyArchiveMail);
+  },
+  unmounted() {
+    window.removeEventListener("keydown", this.escCloseMailModal);
+    window.removeEventListener("keydown", this.keyMarkAsRead);
+    window.removeEventListener("keydown", this.keyArchiveMail);
+  }
+};
+</script>
+
 <template>
-  <section class="mail">
-    <header>
-      <h1 class="page__title">Close (Esc)</h1>
-    </header>
+  <section class="email-view" @click.self="closeMailModal">
+    <div class="email">
+      <h1 class="email__title" @click="closeMailModal">Close (Esc)</h1>
     
-    <div class="page__options">
-      <input type="checkbox" name="" id="">
-      <button class="btn">Mark as read (r)</button>
-      <button class="btn">Archive (a)</button>
+      <div class="email__options">
+        <button class="btn" @click="markAsRead">Mark as read (r)</button>
+        <button class="btn" @click="archiveMail">Archive (a)</button>
+      </div>
+
+      <div class="email__content">
+        <h3 class="mail__title">{{ mail.title }}</h3>
+        <p>{{ mail.body }}</p>
+      </div>
     </div>
-
-    <ul class="mail__content">
-      <li class="mail"></li>
-      <li class="mail">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi eum exercitationem sint eveniet accusantium ullam expedita? Facere quidem animi recusandae velit necessitatibus cupiditate suscipit quisquam sunt quod ipsum. Repellendus, iusto.</li>
-      <li class="mail">
-
-      </li>
-    </ul>
   </section>
 </template>
 
 <style lang="scss" scoped>
-.mail {
-  // background: rgba(0, 0, 0, 0);
-  // opacity: 0.4;
-  // background-color: rgba(0, 0, 0, 0.15);
+.email-view {
+  background: rgba(0, 0, 0, 0.15);
+  display: flex;
   height: 100vh;
+  justify-content: end;
   left: 0;
   position: fixed;
   top: 0;
   width: 100vw;
   z-index: 10;
 
-  &__content {
+  .email {
     background: #fff;
+    height: 100%;
+    padding: 2rem;
+    width: 50%;
 
-
-  }
-
-  &__title {
-    font-size: 1rem;
-    text-decoration: underline;
-    font-weight: 500;
-  }
-
-  &__subtitle {
-    font-size: 2rem;
-    font-weight: 700;
-    padding: 1rem 0 0;
-  }
-
-  &__options {
-    padding: 2rem 0 1rem;
-
-    .btn {
-      border: 1px solid #ddd;
-      background-color: #f9f9f9;
-      outline: none;
-      margin: 0 0 0 1.5rem;
+    &__title {
+      cursor: pointer;
+      font-size: 1rem;
+      text-decoration: underline;
+      font-weight: 500;
     }
+
+    &__options {
+      padding: 1rem 0 2rem;
+
+      .btn {
+        margin: 0 0.625rem 0 0;
+      }
+    }
+
+    &__content {
+      .mail {
+      &__title {
+          font-size: 1.5rem;
+          font-weight: 700;
+          margin: 0 0 0.5rem;
+        }
+      }
+    }   
   }
 }
 </style>

@@ -6,8 +6,62 @@ export default {
     MailModal
   },
   props: {
-    title: String,
-    mails: Array
+    title: {
+      type: String,
+      required: true
+    },
+    mails: {
+      type: Array,
+      required: true
+    }
+  },
+  data() {
+    return {
+      mailList: [],
+      selectAll: false
+    }
+  },
+  methods: {
+    toggleMailModal(mail) {
+      mail.isActive = !mail.isActive;
+    },
+    addToMailList(mail) {
+    },
+    selectAllMails() {
+      if (this.selectAll) {
+        this.mails.forEach(mail => {
+          mail.selected = true;
+        });
+      } else {
+        this.mails.forEach(mail => {
+          mail.selected = false;
+        });
+      }
+    },
+    markAsRead() {
+      this.selectedMailList.forEach(mail => {
+        mail.read = true;
+        mail.selected = false;
+      });
+      this.selectAll = false;
+    },
+    archiveMail() {
+      this.selectedMailList.forEach(mail => {
+        mail.archived = true;
+        mail.selected = false;
+      });
+      this.selectAll = false;
+    }
+  },
+  computed: {
+    selectedMailList() {
+      return this.mails.filter(mail => mail.selected)
+    },
+  },
+  mounted() {
+    this.mails.forEach(mail => {
+      mail.isActive = false;
+    });
   }
 };
 </script>
@@ -20,18 +74,36 @@ export default {
     </header>
     
     <div class="page__options">
-      <input type="checkbox" name="" id="">
-      <button class="btn">Mark as read (r)</button>
-      <button class="btn">Archive (a)</button>
+      <div class="checkbox">
+        <input
+          type="checkbox"
+          v-model="selectAll"
+          @change="selectAllMails"
+        >
+        <span class="checkmark"></span>
+      </div>
+      <button class="btn" @click="markAsRead">Mark as read (r)</button>
+      <button class="btn" @click="archiveMail">Archive (a)</button>
     </div>
 
     <ul class="page__content">
-      <li class="mail" v-for="(mail, index) in mails" :key="index">
-        <input type="checkbox" name="" id="">
-        <p class="mail__title">{{ mail.title }}</p>
-      </li>
+      <li :class="['mail', mail.read ? 'mail--read' : '' ]" v-for="(mail, index) in mails" :key="index">
+        <div class="checkbox">
+          <input
+            type="checkbox"
+            v-model="mail.selected"
+            @change="addToMailList(mail)"
+          >
+          <span class="checkmark"></span>
+        </div>
+        <p class="mail__title" @click="toggleMailModal(mail)">{{ mail.title }}</p>
 
-      <!-- <MailModal /> -->
+        <MailModal 
+          :mail="mail"
+          v-if="mail.isActive"
+          @closeEvent="toggleMailModal(mail)"
+        />
+      </li>
     </ul>
   </section>
 </template>
@@ -53,18 +125,18 @@ export default {
   }
 
   &__options {
+    align-items: center;
+    display: flex;
     padding: 2rem 0;
 
     .btn {
-      border: 1px solid #ddd;
-      background-color: #f9f9f9;
-      outline: none;
       margin: 0 0 0 1.5rem;
     }
   }
 
   &__content {
     .mail {
+      align-items: center;
       background-color: #f9f9f9;
       border: 1px solid #ddd;
       border-radius: 0.5rem;
@@ -73,7 +145,73 @@ export default {
       padding: 1.5rem;
 
       &__title {
+        cursor: pointer;
+        font-size: 1.125rem;
         padding: 0 0 0 1.5rem;
+      }
+
+      &--read {
+        .checkbox {
+          opacity: 0.5;
+        }
+
+        .mail {
+          background-color: rgba($color: #f9f9f9, $alpha: 0.5);
+
+          &__title {
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+  }
+
+  .checkbox {
+    height: 1rem;
+    position: relative;
+    width: 1rem;
+
+    input[type="checkbox"] {
+      height: 100%;
+      opacity: 0;
+      width: 100%;
+
+      &:checked ~ .checkmark {
+        background-color: #646cff;
+        border: 1px solid #646cff;
+
+        &::before{
+          display: block;
+        }
+      }
+
+      &:focus-visible ~ .checkmark {
+        border: 1px solid #646cff;
+      }
+    }
+
+    .checkmark {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 0.125rem;
+      height: 100%;
+      left: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      width: 100%;
+
+      &::before {
+        content: "";
+        position: absolute;
+        display: none;
+        left: 0.25rem;
+        width: calc(50% - 3px);
+        height: calc(90% - 3px);
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        top: -1px;
+        transform: rotate(40deg);
       }
     }
   }
