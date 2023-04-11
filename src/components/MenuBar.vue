@@ -14,10 +14,10 @@ export default {
   <section class="menu">
     <ul class="menu__options">
       <li>
-        <router-link to="/">Inbox ({{ emailStore.inboxMails.length }})</router-link>
+        <router-link :to="{ name: 'inbox' }">Inbox ({{ emailStore.inboxMails.length }})</router-link>
       </li>
       <li>
-        <router-link to="/archives">Archive ({{ emailStore.archivedMails.length }})</router-link>
+        <router-link :to="{ name: 'archive' }">Archive ({{ emailStore.archivedMails.length }})</router-link>
       </li>
 
       <li><a href="#">Logout</a></li>

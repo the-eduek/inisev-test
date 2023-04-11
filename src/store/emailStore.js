@@ -19,7 +19,7 @@ export const useEmailStore = defineStore('emails', {
         archived: false
       },
       {
-        title: "Your Apple Music Subscription is expiring",
+        title: "You've been invited! Hurry now",
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quod veritatis dicta vitae consequatur enim magnam quam commodi excepturi nisi amet perspiciatis animi voluptatum tenetur, quos dolorem. Expedita, debitis temporibus.",
         archived: true
       },
