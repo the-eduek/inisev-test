@@ -45,12 +45,18 @@ export default {
       });
       this.selectAll = false;
     },
+    keyMarkAsRead(e) {
+      if ((e.key.toLowerCase() === 'r') && (this.selectedMailList.length > 0)) this.markAsRead();
+    },
     archiveMail() {
       this.selectedMailList.forEach(mail => {
         mail.archived = true;
         mail.selected = false;
       });
       this.selectAll = false;
+    },
+    keyArchiveMail(e) {
+      if ((e.key.toLowerCase() === 'a') && (this.selectedMailList.length > 0)) this.archiveMail();      
     }
   },
   computed: {
@@ -62,6 +68,12 @@ export default {
     this.mails.forEach(mail => {
       mail.isActive = false;
     });
+    window.addEventListener("keydown", this.keyMarkAsRead);
+    window.addEventListener("keydown", this.keyArchiveMail);
+  },
+  unMounted() {
+    window.removeEventListener("keydown", this.keyMarkAsRead);
+    window.removeEventListener("keydown", this.keyArchiveMail);
   }
 };
 </script>
