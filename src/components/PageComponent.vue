@@ -25,8 +25,6 @@ export default {
     toggleMailModal(mail) {
       mail.isActive = !mail.isActive;
     },
-    addToMailList(mail) {
-    },
     selectAllMails() {
       if (this.selectAll) {
         this.mails.forEach(mail => {
@@ -82,7 +80,7 @@ export default {
   <section class="page">
     <header>
       <h1 class="page__title">{{ title }}</h1>
-      <h2 class="page__subtitle">Emails selected (0)</h2>
+      <h2 class="page__subtitle">Emails selected ({{ selectedMailList.length }})</h2>
     </header>
     
     <div class="page__options">
@@ -104,7 +102,6 @@ export default {
           <input
             type="checkbox"
             v-model="mail.selected"
-            @change="addToMailList(mail)"
           >
           <span class="checkmark"></span>
         </div>
