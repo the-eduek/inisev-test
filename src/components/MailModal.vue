@@ -9,7 +9,7 @@ export default {
   },
   methods: {
     closeMailModal() {
-      this.$emit("closeEvent")
+      this.$emit("closeEvent");
     },
     escCloseMailModal(e) {
       if ((e.key.toLowerCase() === 'escape') && (this.mail.isActive === true)) this.closeMailModal();
@@ -24,7 +24,7 @@ export default {
       this.mail.archived = true;
     },
     keyArchiveMail(e) {
-      if ((e.key.toLowerCase() === 'a') && (this.mail.isActive === true)) this.archiveMail();      
+      if ((e.key.toLowerCase() === 'a') && (this.mail.isActive === true)) this.archiveMail();
     }
   },
   mounted() {
@@ -32,7 +32,7 @@ export default {
     window.addEventListener("keydown", this.keyMarkAsRead);
     window.addEventListener("keydown", this.keyArchiveMail);
   },
-  unmounted() {
+  beforeUnmount() {
     window.removeEventListener("keydown", this.escCloseMailModal);
     window.removeEventListener("keydown", this.keyMarkAsRead);
     window.removeEventListener("keydown", this.keyArchiveMail);
@@ -73,8 +73,8 @@ export default {
   .email {
     background: #fff;
     height: 100%;
-    padding: 2rem;
-    width: 50%;
+    padding: 16rem 2rem 2rem;
+    width: 75%;
 
     &__title {
       cursor: pointer;
@@ -84,10 +84,10 @@ export default {
     }
 
     &__options {
-      padding: 1rem 0 2rem;
+      padding: 0 0 1rem;
 
       .btn {
-        margin: 0 0.625rem 0 0;
+        margin: 1rem 0.625rem 0.25rem 0;
       }
     }
 
@@ -101,5 +101,14 @@ export default {
       }
     }   
   }
+}
+
+@media (min-width: 768px) {
+  .email-view {
+    .email {
+      padding: 2.5rem;
+      width: 50%;
+    }
+  }  
 }
 </style>

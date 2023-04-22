@@ -4,6 +4,7 @@ import { useEmailStore } from "../store/emailStore";
 export default {
   data() {
     return {
+      showMenu: false,
       emailStore: useEmailStore()
     }
   }
@@ -27,15 +28,17 @@ export default {
 
 <style lang="scss" scoped>
 .menu {
-  padding: 2rem;
-  max-width: 31.25rem;
-  width: 30%;
+  width: 100%;
+  z-index: 100;
 
   &__options{
+    background-color: #373636;
     display: flex;
     height: 100%;
-    flex-direction: column;
-    
+    flex-direction: column; 
+    padding: 2rem;
+    width: 100%;
+
     li {
       background-color: #fff;
       border-radius: 0.5rem;
@@ -59,6 +62,19 @@ export default {
         margin: auto 0 0;
       }
     }
+  }
+}
+
+@media (min-width: 768px) {
+  .menu {
+    max-width: 31.25rem;
+    width:  40%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .menu {
+    width: 35%;
   }
 }
 </style>

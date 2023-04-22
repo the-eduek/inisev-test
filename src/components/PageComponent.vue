@@ -17,7 +17,6 @@ export default {
   },
   data() {
     return {
-      mailList: [],
       selectAll: false
     }
   },
@@ -34,28 +33,23 @@ export default {
         this.mails.forEach(mail => {
           mail.selected = false;
         });
-      }
+      };
     },
     markAsRead() {
       this.selectedMailList.forEach(mail => {
         mail.read = true;
         mail.selected = false;
       });
-      this.selectAll = false;
-    },
-    keyMarkAsRead(e) {
-      if ((e.key.toLowerCase() === 'r') && (this.selectedMailList.length > 0)) this.markAsRead();
     },
     archiveMail() {
       this.selectedMailList.forEach(mail => {
         mail.archived = true;
         mail.selected = false;
       });
-      this.selectAll = false;
     },
-    keyArchiveMail(e) {
-      if ((e.key.toLowerCase() === 'a') && (this.selectedMailList.length > 0)) this.archiveMail();      
-    }
+    shortcutAction(e, key, action) {
+      if ((e.key.toLowerCase() === key.toLowerCase()) && (this.selectedMailList.length > 0)) action();
+    },
   },
   computed: {
     selectedMailList() {
@@ -66,12 +60,26 @@ export default {
     this.mails.forEach(mail => {
       mail.isActive = false;
     });
-    window.addEventListener("keydown", this.keyMarkAsRead);
-    window.addEventListener("keydown", this.keyArchiveMail);
+    window.addEventListener("keydown", (e) => {
+      this.shortcutAction(e, 'r', this.markAsRead);
+    });
+    window.addEventListener("keydown", (e) => {
+      this.shortcutAction(e, 'a', this.archiveMail);
+    });
   },
-  unMounted() {
-    window.removeEventListener("keydown", this.keyMarkAsRead);
-    window.removeEventListener("keydown", this.keyArchiveMail);
+  beforeUnmount() {
+    window.removeEventListener("keydown", (e) => {
+      this.shortcutAction(e, 'r', this.markAsRead);
+    });
+    window.removeEventListener("keydown", (e) => {
+      this.shortcutAction(e, 'a', this.archiveMail);
+    });
+  },
+  watch: {
+    selectedMailList(newVal) {
+      if (newVal.length === this.mails.length) this.selectAll = true;
+      else this.selectAll = false;
+    }
   }
 };
 </script>

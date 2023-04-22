@@ -15,7 +15,7 @@ export default {
 </script>
 
 <template>
-  <section>
+  <section class="page">
     <PageComponent
       title="Archive"
       :mails="emailStore.archivedMails"

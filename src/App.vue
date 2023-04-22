@@ -4,7 +4,7 @@ import MenuBar from './components/MenuBar.vue';
 export default{
   components: {
     MenuBar
-  },
+  }
 }
 </script>
 
@@ -20,13 +20,19 @@ export default{
 
 <style lang="scss" scoped>
 .app {
-  background-color: #373636;
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  
+
   &__content {
     background-color: #fff;
     width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .app {
+    flex-direction: row;
   }
 }
 </style>
