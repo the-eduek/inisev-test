@@ -8,7 +8,6 @@ export const useEmailStore = defineStore('emails', {
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quod veritatis dicta vitae consequatur enim magnam quam commodi excepturi nisi amet perspiciatis animi voluptatum tenetur, quos dolorem. Expedita, debitis temporibus.",
         archived: false,
         read: false,
-        isActive: false,
         selected: false
       },
       {
@@ -16,7 +15,6 @@ export const useEmailStore = defineStore('emails', {
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quod veritatis dicta vitae consequatur enim magnam quam commodi excepturi nisi amet perspiciatis animi voluptatum tenetur, quos dolorem. Expedita, debitis temporibus.",
         archived: false,
         read: true,
-        isActive: false,
         selected: false
       },
       {
@@ -24,7 +22,6 @@ export const useEmailStore = defineStore('emails', {
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quod veritatis dicta vitae consequatur enim magnam quam commodi excepturi nisi amet perspiciatis animi voluptatum tenetur, quos dolorem. Expedita, debitis temporibus.",
         archived: false,
         read: false,
-        isActive: false,
         selected: false
       },
       {
@@ -32,7 +29,6 @@ export const useEmailStore = defineStore('emails', {
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quod veritatis dicta vitae consequatur enim magnam quam commodi excepturi nisi amet perspiciatis animi voluptatum tenetur, quos dolorem. Expedita, debitis temporibus.",
         archived: true,
         read: false,
-        isActive: false,
         selected: false
       },
     ]

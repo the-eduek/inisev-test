@@ -1,22 +1,18 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
-/** import all views (pages) */
-import Inbox from "../pages/index.vue";
-import Archive from "../pages/archive.vue";
-
 /** router instance */
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
       path: "/",
-      component: Inbox,
-      name: "inbox"
+      name: "inbox",
+      component: () => import('../pages/index.vue')
     },
     {
       path: "/archive",
-      component: Archive,
       name: "archive",
+      component: () => import('../pages/archive.vue'),
     }
   ]
 });
