@@ -12,19 +12,20 @@ export default {
       this.$emit("closeEvent");
     },
     escCloseMailModal(e) {
-      if ((e.key.toLowerCase() === 'escape') && (this.mail.isActive === true)) this.closeMailModal();
+      if ((e.key.toLowerCase() === 'escape')) this.closeMailModal();
     },
     markAsRead() {
       this.mail.read = true;
     },
     keyMarkAsRead(e) {
-      if ((e.key.toLowerCase() === 'r') && (this.mail.isActive === true)) this.markAsRead();
+      if ((e.key.toLowerCase() === 'r')) this.markAsRead();
     },
     archiveMail() {
       this.mail.archived = true;
+      this.closeMailModal();
     },
     keyArchiveMail(e) {
-      if ((e.key.toLowerCase() === 'a') && (this.mail.isActive === true)) this.archiveMail();
+      if ((e.key.toLowerCase() === 'a')) this.archiveMail();  
     }
   },
   mounted() {

@@ -5,6 +5,7 @@ export default {
   components: {
     MailModal
   },
+  emits: [ 'openEvent' ],
   props: {
     title: {
       type: String,
@@ -21,8 +22,8 @@ export default {
     }
   },
   methods: {
-    toggleMailModal(mail) {
-      mail.isActive = !mail.isActive;
+    openMailModal(mail) {
+      this.$emit("openEvent", mail);
     },
     selectAllMails() {
       if (this.selectAll) {
@@ -113,13 +114,7 @@ export default {
           >
           <span class="checkmark"></span>
         </div>
-        <p class="mail__title" @click="toggleMailModal(mail)">{{ mail.title }}</p>
-
-        <MailModal 
-          :mail="mail"
-          v-if="mail.isActive"
-          @closeEvent="toggleMailModal(mail)"
-        />
+        <p class="mail__title" @click="openMailModal(mail)">{{ mail.title }}</p>
       </li>
     </ul>
   </section>
